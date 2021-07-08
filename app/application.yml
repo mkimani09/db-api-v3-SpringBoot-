@@ -1,0 +1,60 @@
+spring:
+  jpa:
+    database: postgresql
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    username: scbagency #rmunialo
+    url: jdbc:postgresql://testing-aurora-postgresql-0.czexri7goy1c.eu-west-1.rds.amazonaws.com:5432/scbagency
+    password: CYQ5b1SiJQ #rMunialo@123
+  #  driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      pool-name: api-db-pool
+      minimum-idle: 3
+  application:
+    name: db-api-spring
+  activemq:
+    in-memory: true
+    pool:
+      enabled: false
+server:
+  tomcat:
+    accept-count: 200
+    max-connections: 8192
+    max-threads: 200
+  port: 4041
+  ssl:
+    key-store: classpath:sslkeystore.p12
+    enabled: false
+    key-store-type: PKCS12
+    key-store-password: mypass
+    key-alias: tomcat
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:4042/eureka/
+    #  instance:
+    #    secure-port-enabled: true
+    #    secure-port: ${server.port}
+    enabled: on
+primarydb: postgres
+schema-name: EBANK
+
+file-storage:
+  sp-location: configs/sp-list.json
+  query-template: configs/query-template.json
+  sql-queries: configs/sql-queries.json
+  injections: configs/injection.json
+  sql-multi-query: configs/multi-query-objects.json
+  
+logging:
+  file: logs/db-api.log  

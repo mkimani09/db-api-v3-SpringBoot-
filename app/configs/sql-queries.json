@@ -1,0 +1,261 @@
+[
+   {
+    "QUERY_NAME": "APPROVE_USERS",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["Active = 1","approved = 1","approved_on = CURRENT_TIMESTAMP","@approved_by = ?","@checker_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+  {
+    "QUERY_NAME": "DECLINE_USERS",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["Active = 0","approved = 0","declined_on = CURRENT_TIMESTAMP","@declined_by = ?","@declined_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+  {
+    "QUERY_NAME": "BLOCK_USER",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["Active = 0","blocked = 1","blocked_on = CURRENT_TIMESTAMP","@blocked_by = ?","@block_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+  
+  {
+    "QUERY_NAME": "UNBLOCK_USER",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["unblocked = 1","unblocked_on = CURRENT_TIMESTAMP","@unblocked_by = ?","@unblocked_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+  
+  {
+    "QUERY_NAME": "APPROVE_UNBLOCK_USER",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["Active = 1","blocked = 0","unblocked = 0","unblocked_on = CURRENT_TIMESTAMP","@unblocked_by = ?","@unblocked_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+  {
+    "QUERY_NAME": "CREATE_PROFILE",
+    "CRUD_TYPE": "INSERT",
+    "TABLE_NAME": "public.tb_profiles",
+    "COLUMN_NAMES": ["@profile_name", "@created_by","@remarks"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "VALUES": "VALUES(?,?,?)",
+    "DOCUMENTATION": "Expected parameters in data field [profile_name ,created_by, remarks]"
+ },
+ 
+  {
+    "QUERY_NAME": "APPROVE_PROFILE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_profiles",
+    "COLUMN_NAMES": ["Active = 1","approved = 1","approved_on = CURRENT_TIMESTAMP","@approved_by = ?","@checker_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],  
+    "DOCUMENTATION": "Expected parameters in data field [profile_name ,created_by, remarks]"
+ },
+ {
+    "QUERY_NAME": "DECLINE_PROFILE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_profiles",
+    "COLUMN_NAMES": ["Active = 0","approved = 0","declined_on = CURRENT_TIMESTAMP","@declined_by = ?","@declined_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+  {
+    "QUERY_NAME": "VIEW_ALL_USERS",
+    "CRUD_TYPE": "SELECT",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["id","username","email","id_number","mobile_number","superadmin","active","created_on","created_by","f_name","s_name","m_name","dob","approved","approved_on"],
+    "WHERE_CLAUSE": ["OPTIONAL:id = ?","OPTIONAL:username = ?"],
+    "GROUP_STATEMENT":[],
+    "ORDER_STATEMENT": "ORDER BY id  ASC OFFSET (@PAGE) ROWS FETCH NEXT (@SIZE) ROWS ONLY",
+    "DOCUMENTATION": "Expected parameters in data field [PAGE,SIZE]",
+    "FILTERS":["id"]
+  }
+ ,
+  {
+    "QUERY_NAME": "VIEW_ALL_PROFILES",
+    "CRUD_TYPE": "SELECT",
+    "TABLE_NAME": "public.tb_profiles",
+    "COLUMN_NAMES": ["id","profile_name","active","created_on","created_by","approved","approved_on"],
+    "WHERE_CLAUSE": ["OPTIONAL:id = ?","OPTIONAL:username = ?"],
+    "GROUP_STATEMENT":[],
+    "ORDER_STATEMENT": "ORDER BY id DESC OFFSET (@PAGE) ROWS FETCH NEXT (@SIZE) ROWS ONLY",
+    "DOCUMENTATION": "Expected parameters in data field [PAGE,SIZE]",
+    "FILTERS":["id"]
+  },
+   {
+    "QUERY_NAME": "DELETE_PROFILE",
+    "CRUD_TYPE": "DELETE",
+    "TABLE_NAME": "public.tb_profiles",
+    "COLUMN_NAMES": [],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+   {
+    "QUERY_NAME": "CREATE_ROLE",
+    "CRUD_TYPE": "INSERT",
+    "TABLE_NAME": "public.tb_roles",
+    "COLUMN_NAMES": ["@role_name", "@created_by","@remarks","@description"],    
+	 "WHERE_CLAUSE": [],
+    "VALUES": "VALUES(?,?,?,?)",
+    "DOCUMENTATION": "Expected parameters in data field [role_name ,created_by, remarks]"
+ },
+ 
+  {
+    "QUERY_NAME": "APPROVE_ROLE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_roles",
+    "COLUMN_NAMES": ["Active = 1","approved = 1","approved_on = CURRENT_TIMESTAMP","@approved_by = ?","@checker_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],  
+    "DOCUMENTATION": "Expected parameters in data field [role_name ,created_by, remarks]"
+ },
+ {
+    "QUERY_NAME": "DECLINE_ROLE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_roles",
+    "COLUMN_NAMES": ["Active = 0","approved = 0","declined_on = CURRENT_TIMESTAMP","@declined_by = ?","@declined_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+  ,
+   {
+    "QUERY_NAME": "APPROVE_DELETED_ROLE",
+    "CRUD_TYPE": "DELETE",
+    "TABLE_NAME": "public.tb_roles",
+    "COLUMN_NAMES": [],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  },
+ {
+    "QUERY_NAME": "DELETE_ROLE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_roles",
+    "COLUMN_NAMES": ["Active = 0","deleted = 1","deleted_on = CURRENT_TIMESTAMP","@deleted_by = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+  ,
+ {
+    "QUERY_NAME": "DELETE_USER",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": ["Active = 0","deleted = 1","deleted_on = CURRENT_TIMESTAMP","@deleted_by = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+   ,
+ {
+    "QUERY_NAME": "APPROVE_DELETED_USER",
+    "CRUD_TYPE": "DELETE",
+    "TABLE_NAME": "public.tb_users",
+    "COLUMN_NAMES": [],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+  ,
+  {
+    "QUERY_NAME": "VIEW_ALL_ROLES",
+    "CRUD_TYPE": "SELECT",
+    "TABLE_NAME": "public.tb_roles",
+    "COLUMN_NAMES": ["id","role_name","active","created_on","created_by","approved","approved_on"],
+    "WHERE_CLAUSE": ["OPTIONAL:id = ?","OPTIONAL:role_name = ?"],
+    "GROUP_STATEMENT":[],
+    "ORDER_STATEMENT": "ORDER BY id DESC OFFSET (@PAGE) ROWS FETCH NEXT (@SIZE) ROWS ONLY",
+    "DOCUMENTATION": "Expected parameters in data field [PAGE,SIZE]",
+    "FILTERS":["id"]
+  }
+  ,
+   {
+    "QUERY_NAME": "ASSIGN_PROFILE",
+    "CRUD_TYPE": "INSERT",
+    "TABLE_NAME": "public.tb_user_in_profile",
+    "COLUMN_NAMES": ["@user_id", "@created_by","@remarks","@profile_id"],
+	"WHERE_CLAUSE": [],
+    "VALUES": "VALUES(?,?,?,?)",
+    "DOCUMENTATION": "Expected parameters in data field [user_id ,created_by, remarks]"
+ }
+  ,
+ {
+    "QUERY_NAME": "APPROVE_ASSIGN_PROFILE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_user_in_profile",
+    "COLUMN_NAMES": ["Active = 1","approved = 1","approved_on = CURRENT_TIMESTAMP","@approved_by = ?","@checker_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+  , 
+   {
+    "QUERY_NAME": "ADD_ROLES_TO_PROFILE",
+    "CRUD_TYPE": "INSERT",
+    "TABLE_NAME": "public.tb_roles_in_profile",
+    "COLUMN_NAMES": ["@role_id", "@created_by","@remarks","@profile_id"],  
+	"WHERE_CLAUSE": [],
+    "VALUES": "VALUES(?,?,?,?)",
+    "DOCUMENTATION": "Expected parameters in data field [role_id ,created_by, remarks]"
+ }
+  , 
+   {
+    "QUERY_NAME": "REMOVE_ROLES_FROM_PROFILE",
+    "CRUD_TYPE": "DELETE",
+    "TABLE_NAME": "public.tb_roles_in_profile",
+    "COLUMN_NAMES": [],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+ }
+ ,
+ {
+    "QUERY_NAME": "APPROVE_ROLES_IN_PROFILE",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_user_in_profile",
+    "COLUMN_NAMES": ["Active = 1","approved = 1","approved_on = CURRENT_TIMESTAMP","@approved_by = ?","@checker_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+ ,
+ {
+    "QUERY_NAME": "REVOKE_PROFILE_ASSIGNMENT",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_user_in_profile",
+    "COLUMN_NAMES": ["Active = 0","deleted = 1","deleted_on = CURRENT_TIMESTAMP","@deleted_by = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+  ,
+  {
+    "QUERY_NAME": "VIEW_TRANSACTIONS",
+    "CRUD_TYPE": "SELECT",
+    "TABLE_NAME": "public.vw_messages_external",
+    "COLUMN_NAMES": ["*"],
+    "WHERE_CLAUSE": ["OPTIONAL:field2 = ?","OPTIONAL:field3 = ?","OPTIONAL:field100 = ?"],
+    "GROUP_STATEMENT":[],
+    "ORDER_STATEMENT": "ORDER BY id DESC OFFSET (@PAGE) ROWS FETCH NEXT (@SIZE) ROWS ONLY",
+    "DOCUMENTATION": "Expected parameters in data field [PAGE,SIZE]",
+    "FILTERS":["id"]
+  }
+   , 
+   {
+    "QUERY_NAME": "CREATE_AGENT_CATEGORY",
+    "CRUD_TYPE": "INSERT",
+    "TABLE_NAME": "public.tb_agent_category",
+    "COLUMN_NAMES": ["@category_description", "@float_threshhold","@float_from","@float_to","@number_of_agents_from","@number_of_agents_to","@number_of_regions_from","@number_of_regions_to","@commission","@commission_payment_interval","@remarks","@created_by"],  
+	"WHERE_CLAUSE": [],
+    "VALUES": "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+    "DOCUMENTATION": "Expected parameters in data field [category_description ,float_threshhold, float_from, number_of_agents_from,number_of_agents_to, number_of_regions_from,number_of_regions_to,commission]"
+ }
+ ,
+ {
+    "QUERY_NAME": "APPROVE_AGENT_CATEGORY",
+    "CRUD_TYPE": "UPDATE",
+    "TABLE_NAME": "public.tb_agent_category",
+    "COLUMN_NAMES": ["Active = 1","approved = 1","approved_on = CURRENT_TIMESTAMP","@approved_by = ?","@checker_remarks = ?"],
+    "WHERE_CLAUSE": ["@id = ?"],
+    "DOCUMENTATION": "Expected parameters in data field [id]"
+  }
+]
